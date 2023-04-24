@@ -1,5 +1,5 @@
 <template>
-  <button :class="['base-button', { load }]" :disabled="disabled">
+  <button :class="['base-button', { load }]" :disabled="disabled" :type="type">
     <div v-if="load" class="spinner" />
     <slot v-else>base button</slot>
   </button>
@@ -16,6 +16,14 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    type: {
+      type: String,
+      required: false,
+      default: "button",
+      validator: (value) => {
+        return ["button", "submit", "reset"].includes(value)
+      },
     },
   },
 
