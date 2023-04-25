@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <p class="sub-title">Buttons:</p>
-    <ul class="button-list">
+    <p class="sub-title">Button:</p>
+    <ul class="ui-items-list">
       <li>
         <BaseButton @click="handleButtonClick">Google</BaseButton>
       </li>
@@ -22,6 +22,38 @@
         <BaseButton class="full-width-button">Full width</BaseButton>
       </li>
     </ul>
+    <p class="sub-title">Input:</p>
+    <ul class="ui-items-list input-list">
+      <li>
+        <BaseInput />
+      </li>
+      <li>
+        <BaseInput placeholder="Name" v-model="inputValue" />
+      </li>
+      <li>
+        <BaseInput disabled placeholder="Disabled" v-model="inputValue" />
+      </li>
+      <li>
+        <BaseInput
+          type="password"
+          placeholder="Password"
+          v-model="inputValue"
+        />
+      </li>
+      <li>
+        <BaseInput type="number" placeholder="Number" />
+      </li>
+      <li>
+        <BaseInput
+          placeholder="With validation"
+          v-model="inputWithValidationValue"
+          :err="inputValidationErr"
+        />
+      </li>
+      <li>
+        <BaseInput placeholder="Error" err="your err message" />
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -30,7 +62,20 @@ export default {
   data() {
     return {
       toggleLoading: false,
+      inputValue: "Google",
+      inputWithValidationValue: "",
     }
+  },
+
+  computed: {
+    inputValidationErr() {
+      const max = 7
+
+      if (this.inputWithValidationValue.length > max) {
+        return `max ${max} values`
+      }
+      return ""
+    },
   },
 
   methods: {
@@ -52,16 +97,24 @@ export default {
   margin-bottom: 0;
 }
 
-.button-list {
+.ui-items-list {
   display: flex;
   list-style: none;
   margin-top: 5px;
   padding: 0;
   & > li {
-    margin-right: 15px;
+    padding-right: 15px;
+    margin-bottom: 5px;
     &:last-child {
       margin-right: 0;
     }
+  }
+}
+
+.input-list {
+  flex-wrap: wrap;
+  & > li {
+    flex-basis: 25%;
   }
 }
 

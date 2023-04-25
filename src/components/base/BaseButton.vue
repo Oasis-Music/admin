@@ -26,10 +26,6 @@ export default {
       },
     },
   },
-
-  mounted() {
-    console.log(this.$props)
-  },
 }
 </script>
 <style scoped lang="scss">
