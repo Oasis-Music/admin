@@ -1,13 +1,17 @@
 <template>
-  <input
-    :class="['base-input', { 'with-err': withErr }]"
-    :value="modelValue"
-    :placeholder="placeholder"
-    :disabled="disabled"
-    :type="type"
-    @input="$emit('update:modelValue', $event.target.value)"
-  />
-  <span :class="['warn', { visible: withErr }]">{{ err }}</span>
+  <div class="container">
+    <input
+      :class="['base-input', { 'with-err': withErr }]"
+      :value="modelValue"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      :type="type"
+      @input="$emit('update:modelValue', $event.target.value)"
+    />
+    <Transition name="fade">
+      <span class="warn" v-if="withErr">{{ err }}</span>
+    </Transition>
+  </div>
 </template>
 <script>
 export default {
@@ -46,6 +50,12 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+$base-err-area: 18px;
+
+.container {
+  position: relative;
+}
+
 .base-input {
   display: block;
   width: 100%;
@@ -60,6 +70,7 @@ export default {
   border: none;
   border: 1px solid;
   border-color: #9c9c9c;
+  margin-bottom: $base-err-area;
   &:disabled {
     background-color: rgb(0 0 0 / 5%);
   }
@@ -73,17 +84,13 @@ export default {
 }
 
 .warn {
-  display: inline-block;
+  display: block;
+  position: absolute;
+  bottom: -$base-err-area;
   height: 15px;
   font-size: 15px;
   line-height: 15px;
   padding-left: 5px;
   color: #7a7a7a;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.visible {
-  opacity: 1;
 }
 </style>
