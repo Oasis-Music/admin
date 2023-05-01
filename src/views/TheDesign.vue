@@ -54,6 +54,29 @@
         <BaseInput placeholder="Error" err="your err message" />
       </li>
     </ul>
+    <p class="sub-title">Checkbox: {{ baseCheckbox }}</p>
+    <ul class="ui-items-list input-list">
+      <li>
+        <BaseCheckbox v-model="baseCheckbox" />
+      </li>
+      <li>
+        <BaseCheckbox label="Google" v-model="baseCheckbox" />
+      </li>
+      <li>
+        <BaseCheckbox
+          label="Disable next"
+          v-model="customCheckbox"
+          @update:modelValue="handleChecked"
+        />
+      </li>
+      <li>
+        <BaseCheckbox
+          :label="disabledCheckbox ? 'Disabled' : 'Available'"
+          v-model="disabledCheckbox"
+          :disabled="customCheckbox"
+        />
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -64,6 +87,9 @@ export default {
       toggleLoading: false,
       inputValue: "Google",
       inputWithValidationValue: "",
+      baseCheckbox: false,
+      customCheckbox: true,
+      disabledCheckbox: true,
     }
   },
 
@@ -81,6 +107,9 @@ export default {
   methods: {
     handleButtonClick() {
       console.log("ccc")
+    },
+    handleChecked(value) {
+      console.log("custom checkbox handler:", value)
     },
   },
 }
